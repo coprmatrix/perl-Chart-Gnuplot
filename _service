@@ -1,0 +1,31 @@
+<services>
+  <service name="obs_scm">
+    <param name="filename">Chart-Gnuplot</param>
+    <param name="scm">git</param>
+    <param name="url">https://github.com/huakim/perl-Chart-Gnuplot</param>
+    <param name="revision">HEAD</param>
+    <!--param name="versionformat">@PARENT_TAG@</param-->
+    <!--param name="changesgenerate">enable</param-->
+    <param name="extract">*lib/Chart/Gnuplot.pm</param>
+    <param name="without-version">enable</param>
+  </service>
+  <!--service name="set_version" mode="buildtime">
+    <param name="file">Chart-Gnuplot.obsinfo</param>
+    <param name="fromfile">Gnuplot.pm</param>
+    <param name="regex">\$VERSION\s*=\s*['"]([^'"]+)['"];</param>
+  </service-->
+  <service name="run" mode="buildtime">
+    <param name="command">sed -i "s~\(version:\).*~\1 $(cat Gnuplot.pm | sed -n 's/^$VERSION\s*=\s*'"'"'\([^'"'"']*\).*/\1/p')~" Chart-Gnuplot.obsinfo</param>
+  </service>
+  <service name="tar" mode="buildtime"/>
+  <service name="recompress" mode="buildtime">
+    <param name="compression">gz</param>
+    <param name="file">*.tar</param>
+  </service>
+  <service name="cpanspec" mode="buildtime">
+    <param name="noop">enable</param>
+  </service>
+  <service name="run" mode="buildtime">
+    <param name="command">rm *.spec; cpanspec Chart-Gnuplot-*.tar.gz --skip-changes --add-requires gnuplot --packager rpm;</param>
+  </service>
+</services>
