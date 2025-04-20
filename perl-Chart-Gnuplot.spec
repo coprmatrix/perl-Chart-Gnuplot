@@ -27,6 +27,7 @@ Source0:        perl-Chart-Gnuplot.tar.gz
 BuildArch:      noarch
 BuildRequires:  perl
 BuildRequires:  perl-macros
+BuildRequires:  make
 Requires: gnuplot
 %{perl_requires}
 
