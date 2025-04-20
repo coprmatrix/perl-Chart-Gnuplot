@@ -26,6 +26,6 @@
     <param name="noop">enable</param>
   </service>
   <service name="run" mode="buildtime">
-    <param name="command">rm *.spec; cpanspec Chart-Gnuplot-*.tar.gz --skip-changes --add-requires gnuplot --packager rpm;</param>
+    <param name="command">rm *.spec; cpanspec Chart-Gnuplot-*.tar.gz --skip-changes --add-buildrequires make --add-requires gnuplot --packager rpm;</param>
   </service>
 </services>
